@@ -1,22 +1,63 @@
 # Data Structures implemented in python
 
 
-## Segment Tree (useful for finding min/max/sum value within any range in array
-```
-import math
+## Tree
 
-
-# Tree version
-
-
+```python
 class TreeNode:
 
   def __init__(self, val=None, left=None, right=None):
     self.val = val
     self.left = left
     self.right = right
+```
 
-def build_tree(arr, start, end):
+
+### Binary Tree
+
+```python
+
+def build_binary_search_tree(nums):
+  def build(root, num):
+    if not root:
+      return TreeNode(num)
+    if root.val >= num:
+      root.left = build(root.left, num)
+      return root
+    else:
+      root.right = build(root.right, num)
+      return root
+  root = None
+  for n in nums:
+    root = build(root, n)
+  return root
+
+
+def build_balanced_binary_search_tree(nums):
+  def build_balanced_nums(start, end):
+    # add middle into array on every iteration
+    nonlocal nums, balanced_nums
+    if start > end:
+      return
+
+    if start == end:
+      balanced_nums.append(nums[start])
+      return
+
+    mid = end + (start - end) // 2
+    build_balanced_nums(mid, mid) # current middle
+    build_balanced_nums(start, mid-1) # left 
+    build_balanced_nums(mid+1, end) # right    
+```
+
+
+### Segment Tree (useful for finding min/max/sum value within any range in array
+```python
+import math
+
+
+# Tree version
+def build_segment_tree(arr, start, end):
   """return root of segment tree"""
   if start == end:
     return TreeNode(arr[start])
@@ -26,7 +67,7 @@ def build_tree(arr, start, end):
   root = TreeNode(min(left.val, right.val), left, right)
   return root
 
-def query_tree(root, start, end, query_start, query_end):
+def query_segment_tree(root, start, end, query_start, query_end):
   if query_start <= start and end <= query_end:
     return root.val
   elif query_start > end or query_end < start:
@@ -38,8 +79,8 @@ def query_tree(root, start, end, query_start, query_end):
 
 
 # arr = [i for i in range(1, 6)]
-# root = build_tree(arr, 0, len(arr)-1)
-# print( query_tree(root, 0, len(arr)-1, 3, 4 ) )
+# root = build_segment_tree(arr, 0, len(arr)-1)
+# print( query_segment_tree(root, 0, len(arr)-1, 3, 4 ) )
 
 
 # Array version
