@@ -32,13 +32,13 @@ class SegmentTreeHelper:
 
   @classmethod
   def build_min_segment_tree(cls, nums):
-    trees = TreeHelper.init_trees(nums, math.inf)
+    trees = cls.init_trees(nums, math.inf)
     cls.build_segment_tree(nums, trees, 0, 0, len(nums)-1, 'min')
     return trees
 
   @classmethod
   def build_max_segment_tree(cls, nums):
-    trees = TreeHelper.init_trees(nums, -math.inf)
+    trees = cls.init_trees(nums, -math.inf)
     cls.build_segment_tree(nums, trees, 0, 0, len(nums)-1, 'max')
     return trees
 
