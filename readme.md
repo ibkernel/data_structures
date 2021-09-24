@@ -48,6 +48,11 @@ def build_balanced_binary_search_tree(nums):
     build_balanced_nums(mid, mid) # current middle
     build_balanced_nums(start, mid-1) # left 
     build_balanced_nums(mid+1, end) # right    
+  nums.sort()
+  balanced_nums = []
+  build_balanced_nums(0, len(nums) -1)
+  return build_binary_search_tree(balanced_nums)
+  
 ```
 
 
