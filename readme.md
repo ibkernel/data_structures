@@ -4,6 +4,13 @@
 ## Tree
 
 ```python
+class TreeNode:
+
+  def __init__(self, val=None, left=None, right=None):
+    self.val = val
+    self.left = left
+    self.right = right
+
 
 def printTree(node, level=0):
     if node != None:
@@ -11,12 +18,6 @@ def printTree(node, level=0):
         print(' ' * 4 * level + '->', node.val)
         printTree(node.right, level + 1)
 
-class TreeNode:
-
-  def __init__(self, val=None, left=None, right=None):
-    self.val = val
-    self.left = left
-    self.right = right
 ```
 
 
