@@ -6,7 +6,44 @@
 import math
 
 
-class SegmentTreeHelper:
+# Tree version
+
+
+class TreeNode:
+
+  def __init__(self, val=None, left=None, right=None):
+    self.val = val
+    self.left = left
+    self.right = right
+
+def build_tree(arr, start, end):
+  """return root of segment tree"""
+  if start == end:
+    return TreeNode(arr[start])
+  mid = end + (start - end) // 2
+  left = build_tree(arr, start, mid)
+  right = build_tree(arr, mid+1, end)
+  root = TreeNode(min(left.val, right.val), left, right)
+  return root
+
+def query_tree(root, start, end, query_start, query_end):
+  if query_start <= start and end <= query_end:
+    return root.val
+  elif query_start > end or query_end < start:
+    return math.inf
+  else:
+    mid = end + (start - end) // 2
+    return min(query_tree(root.left, start, mid, query_start, query_end),
+               query_tree(root.right, mid+1, end, query_start, query_end))
+
+
+# arr = [i for i in range(1, 6)]
+# root = build_tree(arr, 0, len(arr)-1)
+# print( query_tree(root, 0, len(arr)-1, 3, 4 ) )
+
+
+# Array version
+class SegmentTreeArrayHelper:
 
   @classmethod
   def init_trees(cls, arr, init_val=0):
@@ -112,9 +149,9 @@ class SegmentTreeHelper:
         return 0
 
 
-#arr = [i for i in range(1, 6)]
-#tree = SegmentTreeHelper.build_sum_segment_tree(arr)
-#print(arr, '\n', tree)
-#print( SegmentTreeHelper.query_sum(arr, tree, 0, 2)  )
+# arr = [i for i in range(1, 6)]
+# tree = SegmentTreeArrayHelper.build_sum_segment_tree(arr)
+# print(arr, '\n', tree)
+# print( SegmentTreeArrayHelper.query_sum(arr, tree, 0, 2)  )
 
 ```
