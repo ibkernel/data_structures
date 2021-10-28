@@ -235,7 +235,8 @@ class UnionFind:
 ```
 
 ### Quick union by rank and path compression
-```pythonclass UnionFind:
+```python
+class UnionFind:
     def __init__(self, size):
         self.root = [i for i in range(size)]
         self.rank = [1] * size  # height of tree at each node
