@@ -209,3 +209,64 @@ class SegmentTreeArrayHelper:
 # print( SegmentTreeArrayHelper.query_sum(arr, tree, 0, 2)  )
 
 ```
+
+## Union Find (Disjoint Set)
+
+### Quick find
+```python
+class UnionFind:
+    def __init__(self, size):
+        self.root = [i for i in range(size)]
+
+    def find(self, x):
+        return self.root[x]
+		
+    def union(self, x, y):
+        rootX = self.find(x)
+        rootY = self.find(y)
+        if rootX != rootY:
+            for i in range(len(self.root)):
+                if self.root[i] == rootY:
+                    self.root[i] = rootX
+
+    def connected(self, x, y):
+        return self.find(x) == self.find(y)
+
+```
+
+### Quick union by rank
+```python
+# UnionFind class
+class UnionFind:
+    def __init__(self, size):
+        self.root = [i for i in range(size)]
+        self.rank = [1] * size  # height of tree at each node
+
+    def find(self, x):
+        while x != self.root[x]:
+            x = self.root[x]
+        return x
+		
+    def union(self, x, y):
+        root_x = self.find(x)
+        root_y = self.find(y)
+        if root_x != root_y:
+            if self.rank[root_x] > self.rank[root_y]:
+                # root_x is longer than root_y
+                # add root_y into root_x
+                self.root[root_y] = root_x
+            elif self.rank[root_x] < self.rank[root_y]:
+                # root_y is longer than root_x
+                # add root_x into root_y
+                self.root[root_x] = root_y
+            else:  # equal
+                # add root_y into root_x tree
+                # update root_x height
+                self.root[root_y] = root_x
+                self.rank[root_x] += 1
+
+    def connected(self, x, y):
+        return self.find(x) == self.find(y)
+```
+
+
