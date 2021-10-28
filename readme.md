@@ -234,7 +234,7 @@ class UnionFind:
 
 ```
 
-### Quick union by rank
+### Quick union by rank and path compression
 ```python
 # UnionFind class
 class UnionFind:
@@ -243,11 +243,14 @@ class UnionFind:
         self.rank = [1] * size  # height of tree at each node
 
     def find(self, x):
-        while x != self.root[x]:
-            x = self.root[x]
-        return x
+    	# path compression
+    	if x == self.root[x]:
+	    return x
+	self.root[x] = find(root[x])
+	return self.root[x]
 		
     def union(self, x, y):
+    	# make sure when merging, merge the short tree to the longest one
         root_x = self.find(x)
         root_y = self.find(y)
         if root_x != root_y:
